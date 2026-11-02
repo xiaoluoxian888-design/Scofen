@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCOFEN — Sovereign A&amp;R Screening Gateway</title>
+  <meta name="description" content="Turn unmonetized demo labor into an un-gameable revenue stream. A sovereign A&R screening gateway with custom criteria weights and instant programmatic fee splits.">
+  <style>
+    :root {
+      --bg-pure: #000000;
+      --bg-surface: #0d0d0d;
+      --bg-card: #141414;
+      --border-subtle: #1f1f1f;
+      --text-white: #f5f5f5;
+      --text-muted: #8c8c8c;
+      --accent-jade: #00ff87;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-pure);
+      color: var(--text-white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      letter-spacing: -0.02em;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background-color: var(--accent-jade);
+      color: #000000;
+    }
+
+    /* SECTION 1: HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg-pure);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      color: var(--text-white);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-anchor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+    }
+
+    /* SECTION 2: HERO CORE PITCH */
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 5rem 1.5rem;
+      text-align: center;
+    }
+
+    .hero-headline {
+      color: var(--text-white);
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0 auto;
+      max-width: 820px;
+    }
+
+    .hero-subheadline {
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2vw, 1.1875rem);
+      line-height: 1.6;
+      margin: 1.75rem auto 0 auto;
+      max-width: 720px;
+    }
+
+    .cta-container {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background-color: var(--text-white);
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: -0.02em;
+      padding: 0.875rem 2.25rem;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    /* SECTION 3: THE LEVERAGED ECONOMICS */
+    .economics {
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      background-color: var(--bg-surface);
+      padding: 5rem 1.5rem;
+    }
+
+    .economics-container {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .economics-container {
+        grid-template-columns: 5fr 7fr;
+        gap: 3rem;
+      }
+    }
+
+    .economics-headline {
+      color: var(--text-white);
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    .economics-body {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* SECTION 4 & 5: GRIDS (HOW IT WORKS & FAQ) */
+    .content-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 5rem 1.5rem;
+    }
+
+    .content-section.no-top-padding {
+      padding-top: 0;
+    }
+
+    .section-title {
+      color: var(--text-white);
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+    }
+
+    .border-grid {
+      border: 1px solid var(--border-subtle);
+      background-color: var(--border-subtle);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+    }
+
+    @media (min-width: 768px) {
+      .border-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .grid-card {
+      background-color: var(--bg-pure);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .card-title {
+      color: var(--text-white);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-body {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    /* SECTION 6: THE INTAKE CAPTURE */
+    .intake-section {
+      border-top: 1px solid var(--border-subtle);
+      background-color: var(--bg-surface);
+      padding: 6rem 1.5rem;
+    }
+
+    .intake-container {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .intake-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 2.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input {
+      width: 100%;
+      background-color: var(--bg-pure);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-white);
+      font-size: 0.875rem;
+      padding: 0.875rem 1rem;
+      border-radius: 0;
+      outline: none;
+      letter-spacing: -0.02em;
+      transition: border-color 0.15s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-jade);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: var(--text-white);
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 0.875rem 1rem;
+      border: none;
+      border-radius: 0;
+      letter-spacing: -0.02em;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit:hover {
+      opacity: 0.9;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      background-color: var(--bg-pure);
+      padding: 2rem 1.5rem;
+    }
+
+    .footer-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SECTION 1: THE HEADER NAVIGATION -->
+  <header>
+    <div class="nav-container">
+      <div class="nav-brand">SCOFEN</div>
+      <div class="nav-anchor" title="SCOFEN Protocol Visual Anchor">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00ff87" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 2: THE HERO CORE PITCH -->
+  <section class="hero">
+    <h1 class="hero-headline">
+      Turn Unmonetized Demo Labor Into An Un-gameable Revenue Stream.
+    </h1>
+    <p class="hero-subheadline">
+      Stop reviewing unsolicited submissions for free. SCOFEN replaces the traditional chaotic inbox with a text-only, sovereign A&amp;R screening gateway. Set your criteria, assign your weights, and collect premium evaluation fees automatically.
+    </p>
+    <div class="cta-container">
+      <a href="#gateway-intake" class="btn-primary">Initialize Your Gateway</a>
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE LEVERAGED ECONOMICS (THE 30K ADVANTAGE) -->
+  <section class="economics">
+    <div class="economics-container">
+      <div>
+        <h2 class="economics-headline">Instant Operational Volume.</h2>
+      </div>
+      <div>
+        <p class="economics-body">
+          We do not launch onto a blank canvas. When you deploy a pilot Board on SCOFEN, our platform dynamically routes an internal engine of 30,000 verified independent music creators straight into your active submission funnel, driving immediate transaction volume to your gateway from day one.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: HOW IT WORKS -->
+  <section class="content-section">
+    <h2 class="section-title">How It Works</h2>
+    <div class="border-grid">
+      <!-- 01 / Absolute Autonomy -->
+      <div class="grid-card">
+        <div class="card-title">01 / Absolute Autonomy</div>
+        <p class="card-body">
+          You dictate the exact entry fee ($50–$100) and establish precise grading parameters (e.g., Production quality, Sync viability, Vocal tone).
+        </p>
+      </div>
+
+      <!-- 02 / Self-Friction Filtration -->
+      <div class="grid-card">
+        <div class="card-title">02 / Self-Friction Filtration</div>
+        <p class="card-body">
+          High financial barriers instantly force musician self-awareness, cutting out amateur noise before it reaches your dashboard.
+        </p>
+      </div>
+
+      <!-- 03 / Sole Evaluation Power -->
+      <div class="grid-card">
+        <div class="card-title">03 / Sole Evaluation Power</div>
+        <p class="card-body">
+          You score submissions strictly from 0-100 across your custom parameters. The backend serverless engine applies your exact criteria weights to calculate a definitive, un-manipulable final standing.
+        </p>
+      </div>
+
+      <!-- 04 / Automated Royalties Ledger Split -->
+      <div class="grid-card">
+        <div class="card-title">04 / Automated Royalties Ledger Split</div>
+        <p class="card-body">
+          The software executing the programmatic billing module structures and routes payouts automatically. The submission gate routes 70% of every entry transaction fee directly to your Host Pool instantly, while the platform retains 30%. When public users pay the $5.99/month streaming subscription to unlock full-length playback across the platform's independent discovery catalog, the accumulated pool is split systematically to yield ongoing streaming royalties for the hosted artists and curators.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: FAQ -->
+  <section class="content-section no-top-padding">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="border-grid">
+      <!-- FAQ 1 -->
+      <div class="grid-card">
+        <div class="card-title">Q: How does this solve my unmonetized demo mailbox overload?</div>
+        <p class="card-body">
+          A: By introducing a high-friction financial gate ($50–$100 entry fee), raw amateur noise is completely eliminated at the gate. You only spend cognitive bandwidth reviewing track submissions that are highly self-aware, while earning a guaranteed 70% split for your manual evaluation labor.
+        </p>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="grid-card">
+        <div class="card-title">Q: Can third-party scrapers or tools trace my proprietary grading setup?</div>
+        <p class="card-body">
+          A: No. The application architecture runs entirely serverless and decoupled. BuiltWith and external tech-stack tools cannot detect the backend engine or reverse-engineer your custom criteria weights, keeping your operational identity completely sovereign and invisible.
+        </p>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="grid-card">
+        <div class="card-title">Q: Why are there zero visuals, graphics, or artwork on the board profiles?</div>
+        <p class="card-body">
+          A: To enforce absolute objectivity. SCOFEN is a data-driven filtering protocol. Removing headshots and album artwork completely neutralizes implicit visual bias, ensuring music tracks are evaluated solely on spatial and technical merit.
+        </p>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="grid-card">
+        <div class="card-title">Q: How do you guarantee immediate submission traffic for my pilot board?</div>
+        <p class="card-body">
+          A: We dynamically inject a verified internal archive of 30,000 independent music creator leads straight into your active board funnel through a standardized plain-text invite network upon launch.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: THE INTAKE CAPTURE (THE FORM) -->
+  <section id="gateway-intake" class="intake-section">
+    <div class="intake-container">
+      <div class="intake-card">
+        <form id="intake-form" onsubmit="event.preventDefault(); alert('Gateway configured. Redirecting to sovereign host console...');">
+          <div class="form-group">
+            <label class="form-label" for="email">Professional Email</label>
+            <input class="form-input" type="email" id="email" placeholder="curator@agency.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="identity">Company / Curator Identity</label>
+            <input class="form-input" type="text" id="identity" placeholder="Vanguard Audio Labs / Noir Publishing" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="fee">Target Evaluation Fee ($)</label>
+            <input class="form-input" type="number" id="fee" min="20" max="500" placeholder="75" required>
+          </div>
+
+          <button type="submit" class="btn-submit">Deploy Board Configuration</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div>SCOFEN Trust Protocol • High-Friction Music Curation</div>
+      <div>70% Host Settlement • 30% Platform Treasury</div>
+    </div>
+  </footer>
+
+</body>
+</html>

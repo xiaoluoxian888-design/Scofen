@@ -1,0 +1,6 @@
+{
+  "name": "Scofen Music Discovery Platform",
+  "description": "Decentralized multi-criteria music discovery infrastructure and trust protocol with asymmetric scoring and dual-stream royalty economics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
